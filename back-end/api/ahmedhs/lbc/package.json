@@ -1,0 +1,18 @@
+{
+  "name": "lbc",
+  "version": "0.0.0",
+  "description": "",
+  "author": "ahmedhs <ahmedhs.dev@gmail.com>",
+  "main": "functions/__main__.js",
+  "dependencies": {},
+  "private": true,
+  "stdlib": {
+    "build": "faaslang",
+    "name": "ahmedhs/lbc",
+    "timeout": 10000,
+    "personalize": {
+      "keys": [],
+      "user": []
+    }
+  }
+}
