@@ -20,7 +20,7 @@ const readline = require('readline');
 const {google} = require('googleapis');
 
 // If modifying these scopes, delete token.json.
-const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
+const SCOPES = ['https://www.googleapis.com/auth/calendar'];
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
 // time.
@@ -91,7 +91,8 @@ function listEvents(auth) {
   const calendar = google.calendar({version: 'v3', auth});
   calendar.events.list({
     calendarId: 'primary',
-    timeMin: (new Date()).toISOString(),
+    timeMin: (new Date(2018, 11, 24, 15, 0, 0, 0)).toISOString(),
+    timeMax: (new Date(2018, 12, 3, 18, 0, 0, 0)).toISOString(),
     maxResults: 10,
     singleEvents: true,
     orderBy: 'startTime',
@@ -104,6 +105,8 @@ function listEvents(auth) {
         const start = event.start.dateTime || event.start.date;
         const end = event.end.dateTime || event.end.date;
         console.log(`${start} - ${end} - ${event.summary} `);
+        //console.log(event)
+          
       });
     } else {
       console.log('No upcoming events found.');
@@ -111,3 +114,49 @@ function listEvents(auth) {
   });
 }
 // [END calendar_quickstart]
+
+
+function insertEvent(auth){
+     const calendar = google.calendar({version: 'v3', auth});
+    var event = {
+  'summary': 'Google I/O 2015',
+  'location': '800 Howard St., San Francisco, CA 94103',
+  'description': 'A chance to hear more about Google\'s developer products.',
+  'start': {
+    'dateTime': '2018-11-24T09:00:00-07:00',
+    'timeZone': 'America/Los_Angeles',
+  },
+  'end': {
+    'dateTime': '2018-11-24T17:00:00-07:00',
+    'timeZone': 'America/Los_Angeles',
+  },
+  'reminders': {
+    'useDefault': true
+  },
+};
+
+calendar.events.insert({
+  auth: auth,
+  calendarId: 'primary',
+  resource: event,
+}, function(err, event) {
+  if (err) {
+    console.log('There was an error contacting the Calendar service: ' + err);
+    return;
+  }
+  console.log('Event created: %s', event.htmlLink);
+});
+
+    
+}
+
+
+var calendar = require('node-calendar');
+
+
+freeTime({date:"2018-11-24", time:"15:00:00"},{date:"2018-12-3", time:"18:00:00"})
+
+function freeTime(startTimeDate,endTimeDate){
+
+  
+}

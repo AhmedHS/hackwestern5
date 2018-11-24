@@ -1,10 +1,13 @@
 {
   "name": "lbc",
-  "version": "0.0.0",
+  "version": "0.0.17",
   "description": "",
   "author": "ahmedhs <ahmedhs.dev@gmail.com>",
   "main": "functions/__main__.js",
-  "dependencies": {},
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "mongoose": "^5.3.13"
+  },
   "private": true,
   "stdlib": {
     "build": "faaslang",
