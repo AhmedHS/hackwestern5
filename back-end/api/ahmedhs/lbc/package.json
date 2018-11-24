@@ -1,6 +1,6 @@
 {
   "name": "lbc",
-  "version": "0.0.17",
+  "version": "0.1.0",
   "description": "",
   "author": "ahmedhs <ahmedhs.dev@gmail.com>",
   "main": "functions/__main__.js",

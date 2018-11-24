@@ -30,7 +30,8 @@ const TOKEN_PATH = 'token.json';
 fs.readFile('credentials.json', (err, content) => {
   if (err) return console.log('Error loading client secret file:', err);
   // Authorize a client with credentials, then call the Google Calendar API.
-  authorize(JSON.parse(content), listEvents);
+  authorize(JSON.parse(content), listCalenders);
+  
 });
 
 /**
@@ -82,38 +83,98 @@ function getAccessToken(oAuth2Client, callback) {
     });
   });
 }
-
+var eventsOutOfOrder = []
 /**
  * Lists the next 10 events on the user's primary calendar.
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function listEvents(auth) {
+function listEvents(auth,calanderIDs) {
   const calendar = google.calendar({version: 'v3', auth});
+  for (var i =0; i < calanderIDs.length; i++){
   calendar.events.list({
-    calendarId: 'primary',
-    timeMin: (new Date(2018, 11, 24, 15, 0, 0, 0)).toISOString(),
-    timeMax: (new Date(2018, 12, 3, 18, 0, 0, 0)).toISOString(),
-    maxResults: 10,
+    calendarId: calanderIDs[i],
+    timeMin: (new Date(2018, 10, 24, 15, 0, 0, 0)).toISOString(),
+    timeMax: (new Date(2018, 11, 26, 18, 0, 0, 0)).toISOString(),
     singleEvents: true,
     orderBy: 'startTime',
   }, (err, res) => {
     if (err) return console.log('The API returned an error: ' + err);
     const events = res.data.items;
     if (events.length) {
-      console.log('Upcoming 10 events:');
+    
       events.map((event, i) => {
-        const start = event.start.dateTime || event.start.date;
-        const end = event.end.dateTime || event.end.date;
-        console.log(`${start} - ${end} - ${event.summary} `);
+        var start = event.start.dateTime  ;
+        var end = event.end.dateTime ;
+
+      
+      if (typeof(start) !== "undefined"){
+      eventsOutOfOrder.push({start:new Date(start),end:new Date(end)})
+      
+      }
+         
+       
+       // console.log(new Date(end) - new Date(start)  );
         //console.log(event)
+        
+    
           
       });
     } else {
       console.log('No upcoming events found.');
     }
   });
+    
+  }
+    setTimeout(function () {
+      viewSortedListOfDates(eventsOutOfOrder)
+    }, 1000);
+
+  
 }
-// [END calendar_quickstart]
+
+function viewSortedListOfDates(eventsOutOfOrder){
+ var eventsInOrder = eventsOutOfOrder.sort(function(a, b) {
+     return a.start - b.start
+});
+
+ for (var i = 0; i < eventsInOrder.length -1;i++){
+    
+    eventsInOrder[i].freeTimeTillNext = ((eventsInOrder[i+1].start-eventsInOrder[i].end )/36e5 );
+  }
+  
+  for (var i = 0; i < eventsInOrder.length;i++){
+    
+    console.log(eventsInOrder[i]);
+  }
+}
+
+
+function listCalenders(auth) {
+  const calendar = google.calendar({version: 'v3', auth});
+ calendar.calendarList.list(
+    {},
+   (err, result) => {
+  if (err) {
+    console.log(err);
+  } else {
+    var calanderIDs = [];
+    result.data.items.forEach(function(element){
+       //console.log("Name: " + element.summary);
+       calanderIDs.push(element.id)
+            
+    })
+    
+    
+    
+ listEvents(auth,calanderIDs)
+    
+    // or JSON.stringify(result.data)
+  }
+
+  
+}
+);
+}// [END calendar_quickstart]
 
 
 function insertEvent(auth){
@@ -137,7 +198,7 @@ function insertEvent(auth){
 
 calendar.events.insert({
   auth: auth,
-  calendarId: 'primary',
+  calendarId: ['primary',"6mjsqtkef2t2c4g7mh09kca4l4@group.calendar.google.com"],
   resource: event,
 }, function(err, event) {
   if (err) {
