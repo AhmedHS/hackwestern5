@@ -3,15 +3,15 @@ var Pref = require('../../models/prefs.js');
 
 let db = null;
 
-module.exports = (id = '', callback) => {
-    if (id === '') {
-        return 'Must provide an id for a preference to delete.';
+module.exports = (username = '', callback) => {
+    if (username === '') {
+        callback('Must provide a username for a preference to delete.',null);
     }
     else {
         db = db || (mongoose.connect(process.env.MONGO_CONNECTION_STRING));
 
         Pref.remove({
-            _id: id
+            username: username
         }, function(err, item) {
             if (err)
                 return err;
