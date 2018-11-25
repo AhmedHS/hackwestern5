@@ -1,0 +1,10 @@
+<br>
+<h1>Schedule Task</h1>
+<p>
+    {{#each model as |task|}}
+    <div id={{task.id}}>
+        {{task.name}}
+    </div>
+    {{/each}}
+    {{add-new-task}}
+</p>

@@ -9,7 +9,6 @@ module.exports = (username = '', callback) => {
     }
     else {
         db = db || (mongoose.connect(process.env.MONGO_CONNECTION_STRING));
-        let result = null;
 
         Pref.findOne({'username': username}, function(err, prefs) {
             if (err)

@@ -9,7 +9,7 @@ var prefSchema = new Schema({
    prefStart: Number,
    prefEnd: Number,
    daysExcluded: [String],
-   wellness: [[String, Number, Number, Number, Number, Number, String]],
+   wellness: String,
 });
 module.exports = mongoose.model('Pref', prefSchema);    
 //start, end, prefstart, prefend, days to be excluded - array of strings, wellness activities (name, max, min) - array of objects, 

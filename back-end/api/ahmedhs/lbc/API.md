@@ -2,12 +2,12 @@
 
 ## Inserting a preference
 
-### Wellness:
+### Inserting:
 Name, Max time, Min time, Preferred start, preferred end, frequency (string -> Number/(day or week))
 ```
 const lib = require('lib');
 
-    lib.ahmedhs.lbc.prefIns({username: 'spock', start: 2, end: 3, prefStart: 3, prefEnd: 4, daysExcluded: ['Monday'], wellness: [['skiing', 5, 3,2,2,'1/week']]}, function (err, result) {
+    lib.ahmedhs.lbc.prefIns({username: 'spock', start: 2, end: 3, prefStart: 3, prefEnd: 4, daysExcluded: ['Monday'], wellness: 'Skiing, Walking'}, function (err, result) {
     if (err) {
         console.log(err);
     }

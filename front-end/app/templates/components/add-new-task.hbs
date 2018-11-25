@@ -1,0 +1,250 @@
+{{!-- <div class="ui inverted green button" {{action 'openModal'}}>
+ Add New Task
+</div>
+{{#ui-modal name="newTask" class="newTask" }} --}}
+<form class="ui form">
+  <div class="fields">
+    <div class="ten wide field" style="margin-left: 90px;">
+      <label>Adding a Large Task</label>
+      <div class="field">
+            {{input value=taskname type="text" name="task" placeholder="Large Task"}}
+      </div>
+    </div>
+    <div class="two wide field">
+      <label>Due Date</label>
+      <div class="field">
+            {{input value=duedate type="text" name="task" placeholder="DD/MM/YYYY"}}
+      </div>
+    </div>
+   </div>     
+</form>
+<br>
+
+<form class="ui form">
+  <div class="fields" style="margin-left: 90px;">
+    <div class="ten wide field">
+      <h4>Specific, Measurable, Acheiveable, Realistic and Timely</h4>
+      <label>Subtask #1 Name:</label>
+      <div class="field">
+          <div class="field">
+              {{input value=sub1 type="text" name="task" placeholder="i.e research"}}
+          </div>
+      </div>
+    </div>
+      <div class="six wide field" style="padding-top: 30px;">
+        <label>Time</label>
+          <div class="two fields">
+            <div class="field">
+          <select class="ui fluid search dropdown" name="minTime" onchange = {{action "changeSub1Time" value = "target.value"}}>
+            <option value="">Time</option>
+            <option value="1">0:15</option>
+            <option value="2">0:30</option>
+            <option value="3">0:45</option>
+            <option value="4">1:00</option>
+            <option value="5">1:15</option>
+            <option value="6">1:30</option>
+            <option value="7">1:45</option>
+            <option value="8">2:00</option>
+            <option value="9">2:15</option>
+            <option value="10">2:30</option>
+            <option value="11">2:45</option>
+            <option value="12">3:00</option>
+            <option value="13">3:15</option>
+            <option value="14">3:30</option>
+            <option value="15">3:45</option>
+            <option value="16">4:00</option>
+            <option value="17">4:15</option>
+            <option value="18">4:30</option>
+            <option value="19">4:45</option>
+            <option value="20">5:00</option>
+            <option value="21">5:15</option>
+            <option value="22">5:30</option>
+            <option value="23">5:45</option>
+            <option value="24">6:00</option>
+            <option value="25">6:15</option>
+            <option value="26">6:30</option>
+            <option value="27">6:45</option>
+            <option value="28">7:00</option>
+            <option value="29">7:15</option>
+            <option value="30">7:30</option>
+            <option value="31">7:45</option>
+            <option value="32">8:00</option>
+            <option value="33">8:15</option>
+            <option value="34">8:30</option>
+            <option value="35">8:45</option>
+            <option value="36">9:00</option>
+            <option value="37">9:15</option>
+            <option value="38">9:30</option>
+            <option value="39">9:45</option>
+            <option value="40">10:00</option>
+            <option value="41">10:15</option>
+            <option value="42">10:30</option>
+            <option value="43">10:45</option>
+            <option value="44">11:00</option>
+            <option value="45">11:15</option>
+            <option value="46">11:30</option>
+            <option value="47">11:45</option>
+            <option value="48">12:00</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<form class="ui form">
+  <div class="fields" style="margin-left: 90px;">
+    <div class="ten wide field">
+      <label>Subtask #2 Name:</label>
+      <div class="field">
+          <div class="field">
+              {{input value=sub2 type="text" name="task" placeholder="i.e prototyping"}}
+          </div>
+      </div>
+    </div>
+      <div class="six wide field">
+        <label>Time</label>
+          <div class="two fields">
+            <div class="field">
+          <select class="ui fluid search dropdown" name="minTime" onchange = {{action "changeSub2Time" value = "target.value"}}>
+            <option value="">Time</option>
+            <option value="1">0:15</option>
+            <option value="2">0:30</option>
+            <option value="3">0:45</option>
+            <option value="4">1:00</option>
+            <option value="5">1:15</option>
+            <option value="6">1:30</option>
+            <option value="7">1:45</option>
+            <option value="8">2:00</option>
+            <option value="9">2:15</option>
+            <option value="10">2:30</option>
+            <option value="11">2:45</option>
+            <option value="12">3:00</option>
+            <option value="13">3:15</option>
+            <option value="14">3:30</option>
+            <option value="15">3:45</option>
+            <option value="16">4:00</option>
+            <option value="17">4:15</option>
+            <option value="18">4:30</option>
+            <option value="19">4:45</option>
+            <option value="20">5:00</option>
+            <option value="21">5:15</option>
+            <option value="22">5:30</option>
+            <option value="23">5:45</option>
+            <option value="24">6:00</option>
+            <option value="25">6:15</option>
+            <option value="26">6:30</option>
+            <option value="27">6:45</option>
+            <option value="28">7:00</option>
+            <option value="29">7:15</option>
+            <option value="30">7:30</option>
+            <option value="31">7:45</option>
+            <option value="32">8:00</option>
+            <option value="33">8:15</option>
+            <option value="34">8:30</option>
+            <option value="35">8:45</option>
+            <option value="36">9:00</option>
+            <option value="37">9:15</option>
+            <option value="38">9:30</option>
+            <option value="39">9:45</option>
+            <option value="40">10:00</option>
+            <option value="41">10:15</option>
+            <option value="42">10:30</option>
+            <option value="43">10:45</option>
+            <option value="44">11:00</option>
+            <option value="45">11:15</option>
+            <option value="46">11:30</option>
+            <option value="47">11:45</option>
+            <option value="48">12:00</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<form class="ui form">
+  <div class="fields" style="margin-left: 90px;">
+    <div class="ten wide field">
+      <label>Subtask #3 Name:</label>
+      <div class="field">
+          <div class="field">
+              {{input value=sub3 type="text" name="task" placeholder="i.e conclusion"}}
+          </div>
+      </div>
+    </div>
+      <div class="six wide field">
+        <label>Time</label>
+          <div class="two fields">
+            <div class="field">
+          <select class="ui fluid search dropdown" name="minTime" onchange = {{action "changeSub3Time" value = "target.value"}}>
+            <option value="">Time</option>
+            <option value="1">0:15</option>
+            <option value="2">0:30</option>
+            <option value="3">0:45</option>
+            <option value="4">1:00</option>
+            <option value="5">1:15</option>
+            <option value="6">1:30</option>
+            <option value="7">1:45</option>
+            <option value="8">2:00</option>
+            <option value="9">2:15</option>
+            <option value="10">2:30</option>
+            <option value="11">2:45</option>
+            <option value="12">3:00</option>
+            <option value="13">3:15</option>
+            <option value="14">3:30</option>
+            <option value="15">3:45</option>
+            <option value="16">4:00</option>
+            <option value="17">4:15</option>
+            <option value="18">4:30</option>
+            <option value="19">4:45</option>
+            <option value="20">5:00</option>
+            <option value="21">5:15</option>
+            <option value="22">5:30</option>
+            <option value="23">5:45</option>
+            <option value="24">6:00</option>
+            <option value="25">6:15</option>
+            <option value="26">6:30</option>
+            <option value="27">6:45</option>
+            <option value="28">7:00</option>
+            <option value="29">7:15</option>
+            <option value="30">7:30</option>
+            <option value="31">7:45</option>
+            <option value="32">8:00</option>
+            <option value="33">8:15</option>
+            <option value="34">8:30</option>
+            <option value="35">8:45</option>
+            <option value="36">9:00</option>
+            <option value="37">9:15</option>
+            <option value="38">9:30</option>
+            <option value="39">9:45</option>
+            <option value="40">10:00</option>
+            <option value="41">10:15</option>
+            <option value="42">10:30</option>
+            <option value="43">10:45</option>
+            <option value="44">11:00</option>
+            <option value="45">11:15</option>
+            <option value="46">11:30</option>
+            <option value="47">11:45</option>
+            <option value="48">12:00</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+
+ <br>
+ <div class="actions" style="margin-left: 65%;">
+  <div class="ui black right deny button">
+  Cancel
+  </div>
+  <div class="ui positive right labeled icon button" {{action 'onClick' taskname duedate sub1 sub2 sub3}}>
+  Save
+  <i class="checkmark icon"></i>
+ </div>
+ 
+ </div>
+{{!-- {{/ui-modal}} --}}
