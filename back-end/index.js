@@ -92,9 +92,9 @@ function listEvents(auth, calanderIDs) {
   const calendar = google.calendar({ version: 'v3', auth });
   for (var i = 0; i < calanderIDs.length; i++) {
     calendar.events.list({
-      calendarId: calanderIDs[i],
+      calendarId: calanderIDs[i].id,
       timeMin: (new Date(2018, 10, 24, 15, 0, 0, 0)).toISOString(),
-      timeMax: (new Date(2018, 11, 26, 18, 0, 0, 0)).toISOString(),
+      timeMax: (new Date(2018, 11, 30, 18, 0, 0, 0)).toISOString(),
       singleEvents: true,
       orderBy: 'startTime',
     }, (err, res) => {
@@ -128,11 +128,21 @@ function listEvents(auth, calanderIDs) {
   }
   setTimeout(function() {
     viewSortedListOfDates(eventsOutOfOrder)
-  }, 5000);
+  }, 1000);
 
 
 }
-startEndDay (new Date(0,0,0,8,30,0,0),new Date(0,0,0,23,30,0,0),new Date(2018, 10, 24, 0, 0, 0, 0),new Date(2018, 10, 26, 0, 0, 0, 0))
+
+//preferredTime(new Date(0,0,0,16,0,0,0),new Date(0,0,0,21,0,0,0))
+
+function preferredTime(startTime,endTime,timeGiven,offset){
+  if (timeGiven < new Date((endTime+offset)) && timeGiven > new Date((startTime-offset)) ){
+    return startTime;
+  }
+  return false;
+}
+
+startEndDay (new Date(0,0,0,8,30,0,0),new Date(0,0,0,23,30,0,0),new Date(2018, 10, 24, 0, 0, 0, 0),new Date(2018, 10, 30, 0, 0, 0, 0))
 
 function startEndDay (startDay,endDay,startDate,endDate){
   var NumberOfDays = Math.round((endDate-startDate)/(1000*60*60*24))
@@ -146,7 +156,7 @@ function startEndDay (startDay,endDay,startDate,endDate){
     var startOfDay = new Date(startDate.getFullYear(),startDate.getMonth(),startDate.getDate(),startDay.getHours(),startDay.getMinutes(),startDay.getSeconds());
 
   
-  eventsOutOfOrder.push({ start: new Date(endOfDay), end: new Date(startOfDay) })
+  eventsOutOfOrder.push({ start: (new Date(endOfDay)).toISOString(), end: (new Date(startOfDay)).toISOString() })
     
     
      // console.log(new Date(startOfDay).toLocaleString() )
@@ -157,14 +167,19 @@ function startEndDay (startDay,endDay,startDate,endDate){
   
 }
 
+function parseISOString(s) {
+  var b = s.split(/\D+/);
+  return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
+}
+
 function viewSortedListOfDates(eventsOutOfOrder) {
   var eventsInOrder = eventsOutOfOrder.sort(function(a, b) {
-    return a.start - b.start 
+    return new Date(a.start) - new Date(b.start) 
   });
 
   for (var i = 0; i < eventsInOrder.length - 1; i++) {
 
-    eventsInOrder[i].freeTimeTillNext = (eventsInOrder[i+1].start-  eventsInOrder[i].end / 36e5);
+  eventsInOrder[i].freeTimeTillNext =( Math.round(( parseISOString(eventsInOrder[i+1].start) - parseISOString(eventsInOrder[i].end) ) / 36e5* 100) / 100);
   }
 
   for (var i = 0; i < eventsOutOfOrder.length; i++) {
@@ -185,7 +200,8 @@ function listCalenders(auth) {
         var calanderIDs = [];
         result.data.items.forEach(function(element) {
           //console.log("Name: " + element.summary);
-          calanderIDs.push(element.id)
+          calanderIDs.push({id: element.id, name: element.summary})
+        
 
         })
 
@@ -201,29 +217,37 @@ function listCalenders(auth) {
   );
 } // [END calendar_quickstart]
 
-
-function insertEvent(auth) {
-  const calendar = google.calendar({ version: 'v3', auth });
-  var event = {
-    'summary': 'Google I/O 2015',
-    'location': '800 Howard St., San Francisco, CA 94103',
-    'description': 'A chance to hear more about Google\'s developer products.',
+  var eventTest = {
+    'summary': 'TestEvent',
+    'location': '',
+    'description': '',
     'start': {
-      'dateTime': '2018-11-24T09:00:00-07:00',
-      'timeZone': 'America/Los_Angeles',
+      'dateTime': '2018-11-26T19:00:000Z',
+      'timeZone': 'America/New_York',
     },
     'end': {
-      'dateTime': '2018-11-24T17:00:00-07:00',
-      'timeZone': 'America/Los_Angeles',
+      'dateTime': '2018-11-26T20:00:000Z',
+      'timeZone': 'America/New_York',
     },
     'reminders': {
       'useDefault': true
     },
   };
 
+
+
+function insertEvent(auth,event) {
+  const calendar = google.calendar({ version: 'v3', auth });
+  
+  //ALGORITHEM HAPPENS HERER
+  
+  
+  
+  
+
   calendar.events.insert({
     auth: auth,
-    calendarId: ['primary', "6mjsqtkef2t2c4g7mh09kca4l4@group.calendar.google.com"],
+    calendarId: 'primary',
     resource: event,
   }, function(err, event) {
     if (err) {

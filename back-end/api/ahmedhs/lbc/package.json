@@ -1,12 +1,15 @@
 {
   "name": "lbc",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "",
   "author": "ahmedhs <ahmedhs.dev@gmail.com>",
   "main": "functions/__main__.js",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "mongoose": "^5.3.13"
+    "fs": "0.0.1-security",
+    "googleapis": "^27.0.0",
+    "mongoose": "^5.3.13",
+    "readline": "^1.3.0"
   },
   "private": true,
   "stdlib": {

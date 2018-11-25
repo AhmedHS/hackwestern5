@@ -51,3 +51,27 @@ const lib = require('lib');
     //do something with result
 });
 ```
+
+## Getting calendars
+```
+const lib = require('lib');
+    
+     lib.ahmedhs.lbc.calGet(function (err, result) {
+      if (err) {
+        console.log(err);
+      }
+    // do something with result
+});
+```
+
+## Getting events
+```
+const lib = require('lib');
+    
+     lib.ahmedhs.lbc.calEventGet(function (err, result) {
+      if (err) {
+        console.log(err);
+      }
+    // do something with result
+});
+```
