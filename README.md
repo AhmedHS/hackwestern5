@@ -1,5 +1,5 @@
 ## Inspiration
-Our team had a very poor track record of finishing assignments on time, we all had a habit for cramming in to the last second. So we set out to fix that.
+Some members of our team had a very poor track record of finishing assignments on time, they always had a habit for cramming in to the last second. So we set out to fix that.
 ## What it does
 Essentially, the tool allows users to split up larger tasks into a smart action plan. Once the user has decided on the subtasks of the overall task, the tool automatically schedules study/work sessions for them on their google calendar -taking into account their existing events- In addition to this, the tool also allocates times for the user in between work sessions for wellbeing.
 ## How we built it
